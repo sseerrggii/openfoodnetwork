@@ -513,6 +513,7 @@ See the %{link} to find out more about %{sitename}'s features and to start using
   hubs_filter_by: "Filter by"
   hubs_filter_type: "Type"
   hubs_filter_delivery: "Delivery"
+  hubs_filter_property: "Property"
   hubs_matches: "Did you mean?"
   hubs_intro: Shop in your local area
   hubs_distance: Closest to
@@ -1074,6 +1075,9 @@ Please follow the instructions there to make your enterprise visible on the Open
   validation_msg_is_associated_with_an_exising_customer: "is associated with an existing customer"
 
   spree:
+    date_picker:
+      format: ! '%Y-%m-%d'
+      js_format: 'yy-mm-dd'
     zipcode: Postcode
     shipment_states:
       backorder: backorder
