@@ -3,6 +3,8 @@ require 'open_food_network/referer_parser'
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :restrict_iframes
+
   include EnterprisesHelper
   helper CssSplitter::ApplicationHelper
 
@@ -19,6 +21,15 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def restrict_iframes
+    response.headers['X-Frame-Options'] = 'DENY'
+  end
+
+  def enable_embedded_shopfront
+    return unless Spree::Config[:enable_embedded_shopfronts]
+    response.headers.delete 'X-Frame-Options'
+  end
 
   def action
     params[:action].to_sym

@@ -447,4 +447,25 @@ feature %q{
       supplier1.producer_properties(true).should be_empty
     end
   end
+
+  describe "enabling embedded shopfronts" do
+    before do
+      Spree::Config[:enable_embedded_shopfronts] = false
+    end
+
+    it "removes the http headers that restrict iframes on shopfronts" do
+      visit shops_path
+      page.response_headers['X-Frame-Options'].should == 'DENY'
+
+      quick_login_as_admin
+
+      visit spree.edit_admin_general_settings_path
+
+      check 'enable_embedded_shopfronts'
+      click_button 'Update'
+
+      visit shops_path
+      page.response_headers['X-Frame-Options'].should == nil
+    end
+  end
 end
